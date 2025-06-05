@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres:15
+    container_name: currency-exchange
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: currency-exchange-db
+    ports:
+      - '5432:5432'  # Expose the database on port 5432
+    networks:
+      - pedal-network  # network named for futures app services
+    volumes:
+      - newdb:/var/lib/postgresql/data  # Persist database data. Corrected volume name to match the service definition
+
+volumes:
+  newdb:
+
+networks:
+  pedal-network:
+    driver: bridge
